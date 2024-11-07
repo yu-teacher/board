@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    url: "jdbc:mysql://localhost:3306/board?serverTimezone=Asia/Seoul"
+    username: "root"
+    password: "0000"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+
+  security:
+    jwt:
+      secret: ${JWT_SECRET:yourSecretKeyHereItShouldBeLongEnoughForSecurity123!@#}
+
+spring-doc:
+  packages-to-scan: com.beasts.board
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui.html
+    display-query-params-without-oauth2: true
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+security:
+  cors-origin-whitelist:
+    http://localhost:3000,
+    http://127.0.0.1:3000,
+    http://localhost:5173,
+    http://127.0.0.1:5173,
+    http://127.0.0.1:8000,
+    http://localhost:8000
+
+jwt:
+  expiration_time: 86400000
