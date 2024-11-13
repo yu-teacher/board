@@ -2,6 +2,7 @@ package com.beasts.board.post.entity;
 
 import com.beasts.board.comment.entity.Comment;
 import com.beasts.board.common.entity.PasswordProtectedEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class Post extends PasswordProtectedEntity {
     private int viewCount;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("createdAt DESC")  // 생성일시 기준 내림차순 정렬
     private List<Comment> comments = new ArrayList<>();
 
     @Builder

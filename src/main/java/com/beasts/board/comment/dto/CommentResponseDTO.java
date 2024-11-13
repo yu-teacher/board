@@ -9,22 +9,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class CommentResponse {
+public class CommentResponseDTO {
     private final Long id;
     private final String content;
     private final String nickname;
     private final LocalDateTime createdAt;
     private final int depth;
-    private final List<CommentResponse> replies;
+    private final List<CommentResponseDTO> replies;
 
-    public CommentResponse(Comment comment) {
+    public CommentResponseDTO(Comment comment) {
         this.id = comment.getId();
         this.content = comment.getContent();
         this.nickname = comment.getNickname();
         this.createdAt = comment.getCreatedAt();
         this.depth = comment.getDepth();
         this.replies = comment.getReplies().stream()
-                .map(CommentResponse::new)
+                .map(CommentResponseDTO::new)
                 .collect(Collectors.toList());
     }
 }

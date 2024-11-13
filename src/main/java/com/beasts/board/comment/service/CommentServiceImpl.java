@@ -1,11 +1,12 @@
 package com.beasts.board.comment.service;
 
 import com.beasts.board.comment.entity.Comment;
+import com.beasts.board.comment.repository.CommentRepository;
 import com.beasts.board.common.service.AbstractPasswordProtectedService;
 import com.beasts.board.post.entity.Post;
-import com.beasts.board.comment.repository.CommentRepository;
 import com.beasts.board.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@Log4j2
 public class CommentServiceImpl extends AbstractPasswordProtectedService<Comment, Long>
         implements CommentService {
 
@@ -32,29 +34,14 @@ public class CommentServiceImpl extends AbstractPasswordProtectedService<Comment
     @Override
     @Transactional
     public Comment create(Comment entity) {
-        Post post = postRepository.findById(entity.getPost().getId())
-                .orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없습니다."));
-
-        Comment comment = Comment.builder()
-                .content(entity.getContent())
-                .nickname(entity.getNickname())
-                .password(entity.getPassword())
-                .post(post)
-                .parent(entity.getParent())
-                .build();
-
-        return commentRepository.save(comment);
+        return commentRepository.save(entity);
     }
 
     @Override
     @Transactional
     public Comment createWithPassword(Comment entity, String rawPassword) {
-        return create(Comment.builder()
-                .content(entity.getContent())
-                .nickname(entity.getNickname())
-                .password(encodePassword(rawPassword))
-                .post(entity.getPost())
-                .build());
+        entity.setPassword(encodePassword(rawPassword));
+        return create(entity);
     }
 
     @Override

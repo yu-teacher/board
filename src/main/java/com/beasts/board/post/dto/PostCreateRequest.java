@@ -1,14 +1,16 @@
-package com.beasts.board.comment.dto;
+package com.beasts.board.post.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Getter
-@NoArgsConstructor
-@ToString
-public class CommentRequestDTO {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class PostCreateRequest {
+    @NotBlank(message = "제목을 입력해주세요")
+    private String title;
+
     @NotBlank(message = "내용을 입력해주세요")
     private String content;
 
@@ -17,7 +19,4 @@ public class CommentRequestDTO {
 
     @NotBlank(message = "비밀번호를 입력해주세요")
     private String password;
-
-    private Long postId;
-    private Long parentId;  // 대댓글인 경우
 }

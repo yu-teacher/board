@@ -1,12 +1,12 @@
 package com.beasts.board.admin.service;
 
-import com.beasts.board.common.config.JwtUtil;
 import com.beasts.board.admin.entity.Admin;
-import com.beasts.board.comment.entity.Comment;
-import com.beasts.board.post.entity.Post;
-import com.beasts.board.common.exception.InvalidPasswordException;
 import com.beasts.board.admin.repository.AdminRepository;
+import com.beasts.board.comment.entity.Comment;
 import com.beasts.board.comment.repository.CommentRepository;
+import com.beasts.board.common.config.JwtUtil;
+import com.beasts.board.common.exception.InvalidPasswordException;
+import com.beasts.board.post.entity.Post;
 import com.beasts.board.post.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
